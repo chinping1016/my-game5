@@ -3,31 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <title>遊戲說明</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       margin: 0;
       padding: 0;
       font-family: "Microsoft JhengHei", sans-serif;
-      background: url('1234.jpg') no-repeat center center fixed;
-      background-size: cover;
       color: #8B0000;
       position: relative;
+      overflow-x: hidden;
+      text-align: center;
     }
 
+    /* 背景圖層 */
     body::before {
       content: "";
-      position: fixed;
+      position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
       height: 100%;
+      width: 100%;
+      background: url('1234.jpg') no-repeat center center;
+      background-size: cover;
+      z-index: -2;
+    }
+
+    /* 白色遮罩層 */
+    body::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
       background: rgba(255, 255, 255, 0.7);
       z-index: -1;
     }
 
     h1 {
-      text-align: center;
       color: #800000;
       margin-top: 30px;
     }
@@ -39,6 +51,8 @@
       padding: 30px;
       max-width: 800px;
       box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+      position: relative;
+      z-index: 1;
     }
 
     h2 {
@@ -101,7 +115,7 @@
     </ul>
 
     <h3>2. 杯杯好正</h3>
-    <p>依序將三個倒立紙杯翻正立於桌面。</p>
+    <p>依序將三個倒立紙杯翻正立在桌上。</p>
     <ul>
       <li>參加人數：6人</li>
       <li>規則：
@@ -132,23 +146,21 @@
     <h2>下半段：不NG機制（比賽前自行分配棒次，但人員不可重複）</h2>
 
     <h3>1. 手腕綁紙杯</h3>
-    <p>手持乒乓球向地上丟，讓球以彈跳方式進入手腕紙杯中（無次數限制），過關即可交棒。</p>
+    <p>手持乒乓球向地上丟，讓球以彈跳的方式進手腕紙杯中，過關即可交棒進行下關挑戰</p>
     <ul>
-      <li>參加人數：1人</li>
-      <li>規則：
+      <li>參加人數：1人
         <ul>
           <li>可中途換人（但不可重複）</li>
-          <li>紙杯需位於手腕</li>
-          <li>每隊使用 2 顆球</li>
+          <li>手紙杯需位於手腕</li>
+          <li>每隊 2 顆球</li>
         </ul>
       </li>
     </ul>
 
     <h3>2. 長筷子夾球傳遞</h3>
-    <p>隊員1從 A 點夾球至 B 點，隊員2從 B 點夾回 A 點，共 5 球。</p>
+    <p>隊員 1 從 A 點夾5球至 B 點，隊員 2 從 B 點夾回 A 點，共 5 球。</p>
     <ul>
-      <li>參加人數：2人</li>
-      <li>規則：
+      <li>參加人數：2人
         <ul>
           <li>可中途換人（但不可重複）</li>
           <li>掉球兩次需回上一關</li>
@@ -157,22 +169,21 @@
     </ul>
 
     <h3>3. 寶特瓶翻轉站立</h3>
-    <p>將寶特瓶翻轉至少一圈並成功立於桌面。</p>
+    <p>將寶特瓶翻轉一圈並立於桌面。</p>
     <ul>
-      <li>參加人數：1人</li>
-      <li>規則：
+      <li>參加人數：1人
         <ul>
           <li>可中途換人（但不可重複）</li>
-          <li>翻轉失敗三次需回上一關</li>
+          <li>至少翻轉 1 圈</li>
+          <li>掉球三次需回上一關</li>
         </ul>
       </li>
     </ul>
 
     <h3>4. 乒乓球吹瓶挑戰</h3>
-    <p>將乒乓球從第一個倒立瓶子吹至第三個瓶子。</p>
+    <p>將乒乓球在三個倒立瓶子上從第一個瓶子吹到第三個瓶子</p>
     <ul>
-      <li>參加人數：1人</li>
-      <li>規則：
+      <li>參加人數：1人
         <ul>
           <li>可中途換人（但不可重複）</li>
           <li>掉球三次需回上一關</li>
@@ -181,12 +192,11 @@
     </ul>
 
     <h3>5. 翻轉叉子</h3>
-    <p>手端兩個杯子與兩隻叉子，將叉子拋進兩個杯子中，各入一隻才算過關（兩隻都進同一杯不算）。</p>
+    <p>手端兩個杯子跟兩隻叉子將叉子拋進杯子中，需一個杯子一隻叉子，兩隻叉子進同一杯中不算過關</p>
     <ul>
-      <li>參加人數：1人</li>
-      <li>規則：
+      <li>參加人數：1人
         <ul>
-          <li>拋 3 次未完成需回上一關</li>
+          <li>拋3次沒完成需回上一關</li>
         </ul>
       </li>
     </ul>
