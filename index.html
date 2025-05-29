@@ -2,80 +2,43 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>遊戲說明</title>
   <style>
     body {
       margin: 0;
-      padding: 0;
+      padding: 30px;
       font-family: "Microsoft JhengHei", sans-serif;
-      background-image: url('1234.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: #8B0000;
-      position: relative;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.7);
-      z-index: -1;
-    }
-
-    h1 {
+      color: red;
       text-align: center;
-      color: #800000;
-      margin-top: 30px;
+      background-image: url('1234.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+      filter: brightness(0.75) contrast(1.1) saturate(1.2);
     }
 
     section {
-      background: rgba(255, 255, 255, 0.98); /* 更亮的底色 */
+      background: rgba(255, 255, 255, 0.93); /* 更亮的半透明白底 */
       border-radius: 10px;
-      margin: 40px auto;
-      padding: 30px;
-      max-width: 800px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 900px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
 
-    h2 {
-      background: #fce8e8;
-      padding: 10px;
-      border-radius: 6px;
-      color: #b30000;
-    }
-
-    h3 {
-      margin-top: 25px;
-      color: #aa0000;
-    }
-
-    p {
-      margin: 10px 0;
+    h1, h2, h3 {
+      color: red;
     }
 
     ul {
       text-align: left;
-      margin: 0 auto 10px;
-      padding-left: 20px;
-      max-width: 600px;
+      display: inline-block;
     }
 
-    li {
-      margin-bottom: 6px;
-    }
-
-    @media (max-width: 600px) {
-      section {
-        margin: 20px;
-        padding: 20px;
-      }
-
-      ul {
-        padding-left: 15px;
-      }
+    p {
+      font-weight: bold;
     }
   </style>
 </head>
@@ -128,29 +91,30 @@
   </section>
 
   <section>
-    <h2>下半段：不NG機制（比賽前自行分配棒次，但人員不可重複）</h2>
+    <h2>下半段：不NG機制</h2>
 
     <h3>1. 手腕綁紙杯</h3>
-    <p>手持乒乓球向地上丟,讓球以彈跳的方式進手腕紙杯中 (無次數)過關即可交棒進行下關挑戰</p>
+    <p>手持乒乓球向地上丟，讓球以彈跳的方式進入手腕紙杯中。</p>
     <ul>
-       <li>規則：</li>
-      <li>參加人數：1人
+      <li>參加人數：1人</li>
+      <li>規則：
         <ul>
           <li>可中途換人（但不可重複）</li>
-          <li>手紙杯需位於手腕</li>
+          <li>紙杯需位於手腕</li>
           <li>每隊 2 顆球</li>
         </ul>
       </li>
     </ul>
 
     <h3>2. 長筷子夾球傳遞</h3>
-    <p>隊員 1 從 A 點夾5球至 B 點，隊員 2 從 B 點夾回 A 點，共 5 球。</p>
+    <p>隊員 1 從 A 點夾球至 B 點，隊員 2 從 B 點夾回 A 點，共 5 球。</p>
     <ul>
-      <li>規則：</li>
-      <li>參加人數：2人
+      <li>參加人數：2人</li>
+      <li>規則：
         <ul>
           <li>可中途換人（但不可重複）</li>
-          <li>掉球兩次需回上一關</li>
+          <li>每隊 2 顆球</li>
+          <li>掉球兩次需回上一關重來</li>
         </ul>
       </li>
     </ul>
@@ -158,35 +122,36 @@
     <h3>3. 寶特瓶翻轉站立</h3>
     <p>將寶特瓶翻轉一圈並立於桌面。</p>
     <ul>
-       <li>規則：</li>
-      <li>參加人數：1人
+      <li>參加人數：1人</li>
+      <li>規則：
         <ul>
-          <li>可中途換人（但不可重複）</li>
           <li>至少翻轉 1 圈</li>
-          <li>掉球三次需回上一關</li>
+          <li>可中途換人（但不可重複）</li>
+          <li>3 次未成功需回上一關</li>
         </ul>
       </li>
     </ul>
 
     <h3>4. 乒乓球吹瓶挑戰</h3>
-    <p>將乒乓球在三個倒立瓶子上從第一個瓶子吹到第三個瓶子</p>
+    <p>將球從第一個倒立瓶子吹到第三個瓶子。</p>
     <ul>
-      <li>規則：</li>
-      <li>參加人數：1人
+      <li>參加人數：1人</li>
+      <li>規則：
         <ul>
-          <li>可中途換人（但不可重複）</li>
           <li>掉球三次需回上一關</li>
+          <li>可中途換人（但不可重複）</li>
         </ul>
       </li>
     </ul>
 
     <h3>5. 翻轉叉子</h3>
-    <p>手端兩個杯子跟兩隻叉子將叉子拋進杯子中,需一個杯子一隻叉子,兩隻叉子進同一杯中不算過關</p>
+    <p>手端兩個杯子和兩隻叉子，將叉子拋進杯子中，各進一隻才算過關。</p>
     <ul>
-      <li>規則：</li>
-      <li>參加人數：1人
+      <li>參加人數：1人</li>
+      <li>規則：
         <ul>
-         <li>拋3次沒完成需回上一關</li>
+          <li>5 次沒完成需回上一關</li>
+          <li>可中途換人（但不可重複）</li>
         </ul>
       </li>
     </ul>
