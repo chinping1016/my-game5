@@ -9,29 +9,33 @@
       padding: 30px;
       font-family: "Microsoft JhengHei", sans-serif;
       line-height: 1.6;
-      color: red; /* 所有文字改為紅色 */
+      color: red; /* 所有字體紅色 */
       background-image: url('1234.jpg');
       background-size: cover;
       background-repeat: no-repeat;
       background-attachment: fixed;
       background-position: center;
       filter: brightness(0.9) contrast(1.05) saturate(1.2);
+      text-align: center; /* 文字置中 */
     }
 
-    h1, h2 {
-      color: red; /* 標題也強制紅色，保險起見 */
+    h1, h2, h3, p, li {
+      color: red; /* 確保所有文字紅色 */
     }
 
     ul {
-      margin-left: 20px;
+      display: inline-block; /* 讓清單也能置中 */
+      text-align: left;      /* 內容向左對齊以利閱讀 */
+      margin-left: 0;
     }
 
     section {
-      background: rgba(255, 255, 255, 0.85); /* 半透明白底 */
+      background: rgba(255, 255, 255, 0.85);
       border-radius: 8px;
       padding: 20px;
-      margin-bottom: 30px;
+      margin: 30px auto;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      max-width: 800px; /* 避免太寬 */
     }
 
     li {
@@ -45,6 +49,7 @@
 
   <section>
     <h2>上半段：團隊賽三項暖暖身</h2>
+
     <h3>1. 多吸多健康</h3>
     <p>用吸管吸住乒乓球從 A 點移動到 B 點，共 5 球交棒，依序完成。</p>
     <ul>
