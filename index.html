@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <title>遊戲說明</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       padding: 0;
@@ -15,7 +19,7 @@
       position: relative;
     }
 
-    /* 背景半透明遮罩 */
+    /* 白色透明遮罩，方便閱讀 */
     body::before {
       content: "";
       position: fixed;
@@ -23,7 +27,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(255, 255, 255, 0.7); /* 透明白 */
+      background: rgba(255, 255, 255, 0.7);
       z-index: -1;
     }
 
@@ -34,7 +38,7 @@
     }
 
     section {
-      background: rgba(255, 255, 255, 0.95); /* 內容區較亮 */
+      background: rgba(255, 255, 255, 0.95);
       border-radius: 10px;
       margin: 40px auto;
       padding: 30px;
@@ -68,11 +72,11 @@
       margin-bottom: 6px;
     }
 
-    /* 手機版設定 */
-    @media (max-width: 768px) {
+    /* ✅ 手機版背景修正 */
+    @media (max-width: 600px) {
       body {
         background: url('1234.jpg') no-repeat center top;
-        background-size: 400px 200px;
+        background-size: 100% auto; /* 寬度滿版，高度自動調整 */
         background-attachment: scroll;
       }
 
@@ -88,6 +92,7 @@
   </style>
 </head>
 <body>
+  
   <div class="overlay">
     <h1>遊戲說明</h1>
 
