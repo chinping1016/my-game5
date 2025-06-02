@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>遊戲說明</title>
   <style>
     html, body {
@@ -15,10 +15,17 @@
     body {
       background: url('1234.jpg') no-repeat center top;
       background-size: cover;
-      background-attachment: scroll; /* 讓背景會隨內容滾動 */
+      background-attachment: scroll;
     }
 
-    /* 加一層白色半透明遮罩 */
+    /* 手機版背景處理 */
+    @media (max-width: 768px) {
+      body {
+        background-size: contain;
+        background-position: center top;
+      }
+    }
+
     .overlay {
       background-color: rgba(255, 255, 255, 0.7);
       min-height: 100vh;
@@ -32,7 +39,7 @@
     }
 
     section {
-      background: rgba(255, 255, 255, 0.95); /* 內容區更亮 */
+      background: rgba(255, 255, 255, 0.95);
       border-radius: 10px;
       margin: 30px auto;
       padding: 30px;
@@ -87,13 +94,12 @@
   </style>
 </head>
 <body>
-
   <div class="overlay">
     <h1>遊戲說明</h1>
 
+    <!-- section 1 -->
     <section>
       <h2>上半段：團隊賽三項暖暖身</h2>
-
       <h3>1. 多吸多健康</h3>
       <p>用吸管吸住乒乓球從 A 點移動到 B 點，共 5 球交棒，依序完成。</p>
       <ul>
@@ -135,11 +141,12 @@
       </ul>
     </section>
 
+    <!-- section 2 -->
     <section>
       <h2>下半段：不NG機制（比賽前自行分配棒次，但人員不可重複）</h2>
 
       <h3>1. 手腕綁紙杯</h3>
-      <p>手持乒乓球向地上丟，讓球以彈跳的方式進手腕紙杯中，過關即可交棒進行下關挑戰。</p>
+      <p>手持乒乓球向地上丟，讓球以彈跳的方式進手腕紙杯中。</p>
       <ul>
         <li>參加人數：1人</li>
         <li>規則：
@@ -169,39 +176,36 @@
         <li>參加人數：1人</li>
         <li>規則：
           <ul>
-            <li>可中途換人（但不可重複）</li>
             <li>至少翻轉 1 圈</li>
-            <li>3 次未成功需回上一關</li>
+            <li>掉落三次需回上一關</li>
           </ul>
         </li>
       </ul>
 
       <h3>4. 乒乓球吹瓶挑戰</h3>
-      <p>將球從第一個倒立瓶子吹到第三個瓶子。</p>
+      <p>將乒乓球從第一個倒立瓶子吹到第三個瓶子。</p>
       <ul>
         <li>參加人數：1人</li>
         <li>規則：
           <ul>
-            <li>可中途換人（但不可重複）</li>
             <li>掉球三次需回上一關</li>
           </ul>
         </li>
       </ul>
 
       <h3>5. 翻轉叉子</h3>
-      <p>手端兩個杯子跟兩隻叉子，將叉子拋進杯子中，一個杯子需一隻叉子。</p>
+      <p>手端兩個杯子將兩隻叉子拋入，每杯各入一隻。</p>
       <ul>
         <li>參加人數：1人</li>
         <li>規則：
           <ul>
             <li>兩隻叉子進同一杯中不算過關</li>
-            <li>拋 3 次沒完成需回上一關</li>
+            <li>拋 3 次沒成功需回上一關</li>
           </ul>
         </li>
       </ul>
     </section>
   </div>
-
 </body>
 </html>
 
