@@ -76,6 +76,25 @@
       margin-bottom: 6px;
     }
 
+    /* 手機影片顯示 4:5 */
+    .video-container-4by5 {
+      position: relative;
+      width: 100%;
+      padding-bottom: 125%; /* 高度是寬度的125% = 4:5 */
+      height: 0;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+
+    .video-container-4by5 iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
     @media (max-width: 600px) {
       section {
         margin: 20px;
@@ -102,6 +121,9 @@
         上半段：團隊賽三項暖暖身　
         <a href="https://drive.google.com/file/d/1hE2EISbvT3uAuhH-HKErP3NQmS8STSsb/view?usp=drive_link" target="_blank">影片示範</a>
       </h2>
+      <div class="video-container-4by5">
+        <iframe src="https://drive.google.com/file/d/1hE2EISbvT3uAuhH-HKErP3NQmS8STSsb/preview" allow="autoplay"></iframe>
+      </div>
 
       <h3>1. 多吸多健康</h3>
       <p>用吸管吸住乒乓球從 A 點移動到 B 點，共 5 球交棒，依序完成。</p>
@@ -149,9 +171,12 @@
         下半段：不NG機制（比賽前自行分配棒次，但人員不可重複）　
         <a href="https://drive.google.com/file/d/11WOEeHjkpACW7GcLc9FeA1f_froajVYp/view?usp=drive_link" target="_blank">影片示範</a>
       </h2>
+      <div class="video-container-4by5">
+        <iframe src="https://drive.google.com/file/d/11WOEeHjkpACW7GcLc9FeA1f_froajVYp/preview" allow="autoplay"></iframe>
+      </div>
 
       <h3>1. 竹筷子夾球傳遞</h3>
-      <p>雙人依序用竹筷子夾球(隊員1)從A點放到B點,(隊員2)從B點放到A點共5球,順利過關即可到下一關挑戰。</p>
+      <p>雙人依序用竹筷子夾球(隊員1)從A點放到B點,(隊員2)從B點放到A點共5球。</p>
       <ul>
         <li>參加人數：2人</li>
         <li>規則：
@@ -163,13 +188,12 @@
       </ul>
 
       <h3>2. 手腕綁紙杯</h3>
-      <p>手持乒乓球向地上丟，讓球以彈跳的方式進手腕紙杯中，過關即可交棒進行下關挑戰。</p>
+      <p>乒乓球彈跳進紙杯即可過關。</p>
       <ul>
         <li>參加人數：1人</li>
         <li>規則：
           <ul>
             <li>可中途換人（但不可重複）</li>
-            <li>手紙杯需位於手腕</li>
             <li>掉球兩次需回上一關</li>
           </ul>
         </li>
@@ -182,7 +206,6 @@
         <li>規則：
           <ul>
             <li>可中途換人（但不可重複）</li>
-            <li>至少翻轉 1 圈</li>
             <li>3 次未成功需回上一關</li>
           </ul>
         </li>
@@ -201,12 +224,12 @@
       </ul>
 
       <h3>5. 紙杯翻轉</h3>
-      <p>手端2紙杯將其中一個紙杯翻轉進另一個紙杯中順利即可過關。</p>
+      <p>手端2紙杯將其中一個紙杯翻轉進另一個紙杯中。</p>
       <ul>
         <li>參加人數：1人</li>
         <li>規則：
           <ul>
-            <li>紙杯須完整進另一個紙杯中</li>
+            <li>須完整翻轉進杯內</li>
             <li>拋 3 次沒完成需回上一關</li>
           </ul>
         </li>
@@ -216,3 +239,4 @@
 
 </body>
 </html>
+
