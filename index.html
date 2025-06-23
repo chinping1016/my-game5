@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>遊戲說明</title>
   <style>
     html, body {
@@ -47,13 +47,11 @@
       text-align: center;
     }
 
-    h2 .video-link {
+    h2 a {
       font-size: 16px;
       color: #d40000;
       text-decoration: underline;
       margin-left: 10px;
-      cursor: pointer;
-      display: inline-block;
     }
 
     h3 {
@@ -79,12 +77,6 @@
     }
 
     @media (max-width: 600px) {
-      body {
-        background: url('1234.jpg') no-repeat center top;
-        background-size: 400px 200px;
-        background-attachment: scroll;
-      }
-
       section {
         margin: 20px;
         padding: 20px;
@@ -94,43 +86,22 @@
         padding-left: 15px;
       }
 
-      h2 .video-link {
+      h2 a {
         display: block;
         margin-top: 6px;
       }
     }
   </style>
-
-  <script>
-    function openVideoLink(type) {
-      const isMobile = window.innerWidth <= 600;
-
-      const videoLinks = {
-        upper: {
-          desktop: 'https://drive.google.com/file/d/1hE2EISbvT3uAuhH-HKErP3NQmS8STSsb/view?usp=drive_link',
-          mobile:  'https://drive.google.com/file/d/1hE2EISbvT3uAuhH-HKErP3NQmS8STSsb/view?usp=drive_link'
-        },
-        lower: {
-          desktop: 'https://drive.google.com/file/d/11WOEeHjkpACW7GcLc9FeA1f_froajVYp/view?usp=drive_link',
-          mobile:  'https://drive.google.com/file/d/11WOEeHjkpACW7GcLc9FeA1f_froajVYp/view?usp=drive_link'
-        }
-      };
-
-      const selected = videoLinks[type];
-      const link = isMobile ? selected.mobile : selected.desktop;
-      window.open(link, '_blank');
-    }
-  </script>
 </head>
-
 <body>
+
   <div class="overlay">
     <h1>遊戲說明</h1>
 
     <section>
       <h2>
         上半段：團隊賽三項暖暖身　
-        <span class="video-link" onclick="openVideoLink('upper')">影片示範</span>
+        <a href="https://drive.google.com/file/d/1hE2EISbvT3uAuhH-HKErP3NQmS8STSsb/view?usp=drive_link" target="_blank">影片示範</a>
       </h2>
 
       <h3>1. 多吸多健康</h3>
@@ -177,7 +148,7 @@
     <section>
       <h2>
         下半段：不NG機制（比賽前自行分配棒次，但人員不可重複）　
-        <span class="video-link" onclick="openVideoLink('lower')">影片示範</span>
+        <a href="https://drive.google.com/file/d/11WOEeHjkpACW7GcLc9FeA1f_froajVYp/view?usp=drive_link" target="_blank">影片示範</a>
       </h2>
 
       <h3>1. 竹筷子夾球傳遞</h3>
@@ -241,5 +212,7 @@
       </ul>
     </section>
   </div>
+
 </body>
 </html>
+
