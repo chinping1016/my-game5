@@ -22,36 +22,41 @@
       align-items: center;
       justify-content: center;
       gap: 20px;
+      padding: 20px;
     }
 
     .message {
       font-size: 36px;
       color: blue;
       text-align: center;
-      background-color: rgba(255, 255, 255, 0.3); /* 透明白底 */
+      background-color: rgba(255, 255, 255, 0.3); /* 白底透明度 */
       padding: 20px 40px;
       border-radius: 12px;
     }
 
-    .video-link a {
-      font-size: 20px;
-      color: #0066cc;
-      text-decoration: underline;
+    .video-container {
       background-color: rgba(255, 255, 255, 0.3);
-      padding: 10px 20px;
-      border-radius: 8px;
+      padding: 10px;
+      border-radius: 12px;
     }
 
-    .video-link a:hover {
-      color: #003366;
+    iframe {
+      width: 80vw;
+      max-width: 800px;
+      aspect-ratio: 4 / 5; /* 影片比例 4:5 */
+      border: none;
     }
   </style>
 </head>
 <body>
   <div class="message">謝謝參與 明年見</div>
-  <div class="video-link">
-    <a href="https://youtu.be/en9eZVp8Ulw" target="_blank">▶ 花絮影片</a>
+  <div class="video-container">
+    <iframe src="https://www.youtube.com/embed/en9eZVp8Ulw" 
+      title="花絮影片" 
+      allowfullscreen>
+    </iframe>
   </div>
 </body>
 </html>
+
 
