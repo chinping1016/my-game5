@@ -166,43 +166,55 @@
     }
 
     function toggleDraw() {
-        const btn = document.getElementById('drawBtn');
-        const display = document.getElementById('rolling-display');
+    const btn = document.getElementById('drawBtn');
+    const display = document.getElementById('rolling-display');
 
-        if (!isRolling) {
-            if (members.length === 0) return alert("名單已空！");
-            isRolling = true;
-            btn.innerText = "停止抽獎";
-            rollTimer = setInterval(() => {
-                const randomName = members[Math.floor(Math.random() * members.length)];
-                display.innerText = randomName;
-            }, 50);
-        } else {
-            isRolling = false;
+    if (!isRolling) {
+        if (members.length === 0) return alert("名單已空！");
+        isRolling = true;
+        btn.disabled = true; // 抽獎中不可再按
+        btn.innerText = "抽獎中...";
+
+        // 開始快速滾動
+        rollTimer = setInterval(() => {
+            const randomName = members[Math.floor(Math.random() * members.length)];
+            display.innerText = randomName;
+        }, 50);
+
+        // ⭐ 3 秒後自動停止
+        setTimeout(() => {
             clearInterval(rollTimer);
-            btn.innerText = "下一個獎項";
+            isRolling = false;
 
             const winnerIndex = Math.floor(Math.random() * members.length);
             const winner = members.splice(winnerIndex, 1)[0];
-            
+
             display.innerText = winner;
-            
-            // 記錄
+
+            // 記錄中獎
             const rec = document.createElement('div');
             rec.innerText = `${prizeQueue[currentIndex]}：${winner}`;
             document.getElementById('records').prepend(rec);
 
             currentIndex++;
-            // 延遲更新獎項，讓中獎人名字留在螢幕上
-            setTimeout(() => { if(!isRolling) btn.onclick = () => { updateDisplay(); btn.innerText="開始抽獎"; btn.onclick = toggleDraw; } }, 100);
-        }
-    }
 
+            btn.disabled = false;
+            btn.innerText = "下一個獎項";
+            btn.onclick = () => {
+                updateDisplay();
+                btn.innerText = "開始抽獎";
+                btn.onclick = toggleDraw;
+            };
+
+        }, 3000); // ← 3 秒
+    }
+}
     // 初始化標題
     updateTitles();
 </script>
 </body>
 </html>
+
 
 
 
