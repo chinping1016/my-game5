@@ -174,30 +174,41 @@
    function toggleDraw() {
     const btn = document.getElementById('drawBtn');
     const display = document.getElementById('rolling-display');
+    const bgm = document.getElementById('bgm');
 
     if (!isRolling) {
         if (members.length === 0) return alert("名單已空！");
+
         isRolling = true;
-        btn.disabled = true; // 抽獎中不可再按
+        btn.disabled = true;
         btn.innerText = "抽獎中...";
 
-        // 開始快速滾動
+        // ▶ 嘗試播放音樂（避免被瀏覽器擋）
+        try {
+            bgm.currentTime = 0;
+            bgm.play().catch(() => {});
+        } catch {}
+
+        // 名字滾動
         rollTimer = setInterval(() => {
             const randomName = members[Math.floor(Math.random() * members.length)];
             display.innerText = randomName;
         }, 50);
 
-        // ⭐ 1秒後自動停止
+        // ⭐ 3 秒後停止
         setTimeout(() => {
             clearInterval(rollTimer);
             isRolling = false;
+
+            // ⏹ 停止音樂
+            bgm.pause();
 
             const winnerIndex = Math.floor(Math.random() * members.length);
             const winner = members.splice(winnerIndex, 1)[0];
 
             display.innerText = winner;
 
-            // 記錄中獎
+            // 記錄
             const rec = document.createElement('div');
             rec.innerText = `${prizeQueue[currentIndex]}：${winner}`;
             document.getElementById('records').prepend(rec);
@@ -212,7 +223,7 @@
                 btn.onclick = toggleDraw;
             };
 
-        }, 1000); // ← 1 秒
+        }, 3000);
     }
 }
     // 初始化標題
@@ -220,6 +231,7 @@
 </script>
 </body>
 </html>
+
 
 
 
