@@ -1,99 +1,224 @@
 <!DOCTYPE html>
-let rollTimer = null;
-let currentIndex = 0;
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>全通科技抽獎系統</title>
+    <style>
+        :root { --primary-color: #d32f2f; }
+        body { font-family: "Microsoft JhengHei", sans-serif; margin: 0; padding: 0; overflow-x: hidden; background: #333; }
+        
+        /* 背景圖層 */
+        #bg-layer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center; z-index: -1; opacity: 0.8;
+        }
 
+        .main-ui { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+        
+        .header { text-align: center; margin-bottom: 20px; }
+        #comp-name-display { font-size: 28px; letter-spacing: 5px; }
+        #act-name-display { font-size: 50px; font-weight: bold; margin-top: 10px; color: #ffeb3b; }
 
-function initSystem() {
-members = document.getElementById('staffList').value.trim().split('\n');
+        .prize-box { background: rgba(0,0,0,0.6); padding: 20px 40px; border-radius: 15px; border: 2px solid #ffeb3b; min-width: 500px; text-align: center; }
+        #current-prize-title { font-size: 24px; color: #eee; }
+        #current-prize-name { font-size: 36px; font-weight: bold; color: #fff; margin: 10px 0; }
+        
+        #rolling-display { font-size: 72px; font-weight: bold; height: 150px; line-height: 150px; color: #fff; text-shadow: 0 0 20px #ffeb3b; }
 
+        .control-panel { margin-top: 30px; }
+        button { font-size: 24px; padding: 12px 60px; cursor: pointer; background: var(--primary-color); color: white; border: none; border-radius: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: 0.2s; }
+        button:active { transform: translateY(3px); }
+        button:disabled { background: #666; cursor: not-allowed; }
 
-const lines = document.getElementById('prizeInput').value.trim().split('\n');
-let temp = lines.map(l => {
-const [id, name, count] = l.split('|');
-return { id: +id, name, count: +count };
-}).sort((a,b)=>b.id-a.id);
+        /* 設定區域 (側邊欄) */
+        .settings-sidebar {
+            position: fixed; right: -400px; top: 0; width: 380px; height: 100%;
+            background: rgba(255,255,255,0.95); color: #333; padding: 20px;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.3); transition: 0.4s; z-index: 100;
+            overflow-y: auto; text-shadow: none;
+        }
+        .settings-sidebar.active { right: 0; }
+        .toggle-settings { position: fixed; right: 10px; top: 10px; z-index: 101; background: #333; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer; opacity: 0.5; }
+        
+        h3 { border-bottom: 2px solid var(--primary-color); padding-bottom: 5px; }
+        label { display: block; margin-top: 10px; font-weight: bold; }
+        input, textarea { width: 100%; padding: 8px; box-sizing: border-box; margin-top: 5px; }
+        .record-list { margin-top: 20px; font-size: 14px; background: #eee; padding: 10px; height: 150px; overflow-y: auto; }
+    </style>
+</head>
+<body>
 
+<div id="bg-layer"></div>
+<div class="toggle-settings" onclick="document.querySelector('.settings-sidebar').classList.toggle('active')">⚙ 設定介面</div>
 
-prizeQueue = [];
-temp.forEach(p=>{ for(let i=0;i<p.count;i++) prizeQueue.push(p.name); });
+<div class="main-ui">
+    <div class="header">
+        <div id="comp-name-display">請在設定輸入公司名</div>
+        <div id="act-name-display">請輸入活動名稱</div>
+    </div>
 
+    <div class="prize-box">
+        <div id="current-prize-title">準備就緒</div>
+        <div id="current-prize-name">等待開始</div>
+        <div id="rolling-display">READY</div>
+    </div>
 
-currentIndex = 0;
-document.getElementById('records').innerHTML = '';
-updateDisplay();
+    <div class="control-panel">
+        <button id="drawBtn" onclick="toggleDraw()">開始抽獎</button>
+    </div>
+</div>
 
+<div class="settings-sidebar">
+    <h3>系統設定</h3>
+    
+    <label>背景圖上傳：</label>
+    <input type="file" accept="image/*" onchange="loadBg(this)">
 
-alert('初始化完成');
+    <label>公司名稱：</label>
+    <input type="text" id="compName" value="全通科技股份有限公司" oninput="updateTitles()">
+
+    <label>活動名稱：</label>
+    <input type="text" id="actName" value="2026年度福利抽獎" oninput="updateTitles()">
+
+    <label>員工名單 (工號 姓名)：</label>
+    <textarea id="staffList" rows="5" placeholder="A01 王大明&#10;A02 李小華"></textarea>
+
+    <label>獎項設定 (獎號|獎名|數量)：</label>
+    <textarea id="prizeInput" rows="8">
+13|老白茶餅|1
+12|蒸氣眼罩|4
+11|台塑生醫悠甘茶|2
+10|樂美雅保溫杯|1
+9|歐萊德洗手斯|4
+8|膳魔師保溫瓶|8
+7|歐萊德洗髮精|3
+6|富貴有餘茶葉禮盒|1
+5|天仁茗茶禮盒|1
+4|厚禮茶葉禮盒|1
+3|山間茶葉禮盒|1
+2|歐萊德 源木牙膏禮盒|2
+1|飛利浦食物調理機|1</textarea>
+    
+    <button onclick="initSystem()" style="width:100%; background: #2e7d32; margin-top: 10px; border-radius: 5px;">初始化抽獎資料</button>
+
+    <div class="record-list">
+        <strong>中獎紀錄：</strong>
+        <div id="records"></div>
+    </div>
+</div>
+
+<script>
+    let members = [];
+    let prizeQueue = [];
+    let isRolling = false;
+    let rollTimer = null;
+    let currentIndex = 0;
+
+    function loadBg(input) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = e => document.getElementById('bg-layer').style.backgroundImage = `url(${e.target.result})`;
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function updateTitles() {
+        document.getElementById('comp-name-display').innerText = document.getElementById('compName').value;
+        document.getElementById('act-name-display').innerText = document.getElementById('actName').value;
+    }
+
+    function initSystem() {
+        // 1. 處理名單
+        const staffText = document.getElementById('staffList').value.trim();
+        if (!staffText) return alert("請輸入員工名單");
+        members = staffText.split('\n').map(s => s.trim()).filter(s => s);
+
+        // 2. 處理獎項 (自動由大到小排序)
+        const prizeText = document.getElementById('prizeInput').value.trim();
+        const lines = prizeText.split('\n').filter(l => l);
+        let tempPrizes = lines.map(l => {
+            const [id, name, count] = l.split('|');
+            return { id: parseInt(id), name: name, count: parseInt(count) };
+        });
+
+        // 按獎號大到小排序 (例如 8 -> 7 -> 6...)
+        tempPrizes.sort((a, b) => b.id - a.id);
+
+        prizeQueue = [];
+        tempPrizes.forEach(p => {
+            for(let i=0; i<p.count; i++) prizeQueue.push(p.name);
+        });
+
+        currentIndex = 0;
+        document.getElementById('records').innerHTML = "";
+        updateDisplay();
+        document.querySelector('.settings-sidebar').classList.remove('active');
+        alert(`初始化完成！共有 ${members.length} 位員工，${prizeQueue.length} 個獎項。`);
+    }
+
+    function updateDisplay() {
+        if (currentIndex < prizeQueue.length) {
+            document.getElementById('current-prize-title').innerText = `正在抽取：`;
+            document.getElementById('current-prize-name').innerText = prizeQueue[currentIndex];
+            document.getElementById('rolling-display').innerText = "等待開獎";
+            document.getElementById('drawBtn').disabled = false;
+        } else {
+            document.getElementById('current-prize-title').innerText = "抽獎活動";
+            document.getElementById('current-prize-name').innerText = "圓滿結束";
+            document.getElementById('rolling-display').innerText = "恭喜中獎者";
+            document.getElementById('drawBtn').disabled = true;
+        }
+    }
+
+   function toggleDraw() {
+    const btn = document.getElementById('drawBtn');
+    const display = document.getElementById('rolling-display');
+
+    if (!isRolling) {
+        if (members.length === 0) return alert("名單已空！");
+        isRolling = true;
+        btn.disabled = true; // 抽獎中不可再按
+        btn.innerText = "抽獎中...";
+
+        // 開始快速滾動
+        rollTimer = setInterval(() => {
+            const randomName = members[Math.floor(Math.random() * members.length)];
+            display.innerText = randomName;
+        }, 50);
+
+        // ⭐ 1秒後自動停止
+        setTimeout(() => {
+            clearInterval(rollTimer);
+            isRolling = false;
+
+            const winnerIndex = Math.floor(Math.random() * members.length);
+            const winner = members.splice(winnerIndex, 1)[0];
+
+            display.innerText = winner;
+
+            // 記錄中獎
+            const rec = document.createElement('div');
+            rec.innerText = `${prizeQueue[currentIndex]}：${winner}`;
+            document.getElementById('records').prepend(rec);
+
+            currentIndex++;
+
+            btn.disabled = false;
+            btn.innerText = "下一個獎項";
+            btn.onclick = () => {
+                updateDisplay();
+                btn.innerText = "開始抽獎";
+                btn.onclick = toggleDraw;
+            };
+
+        }, 1000); // ← 1 秒
+    }
 }
-
-
-function updateDisplay() {
-if (currentIndex < prizeQueue.length) {
-document.getElementById('current-prize-name').innerText = prizeQueue[currentIndex];
-document.getElementById('rolling-display').innerText = '等待開獎';
-} else {
-document.getElementById('current-prize-name').innerText = '活動結束';
-document.getElementById('rolling-display').innerText = '恭喜';
-document.getElementById('drawBtn').disabled = true;
-}
-}
-
-
-function toggleDraw() {
-const btn = document.getElementById('drawBtn');
-const display = document.getElementById('rolling-display');
-const bgm = document.getElementById('bgm');
-
-
-if (!isRolling) {
-if (members.length === 0) return alert('名單空');
-
-
-isRolling = true;
-btn.disabled = true;
-
-
-// 播音樂（關鍵修正：用使用者點擊觸發）
-bgm.currentTime = 0;
-bgm.play().catch(()=>{});
-
-
-rollTimer = setInterval(()=>{
-display.innerText = members[Math.floor(Math.random()*members.length)];
-},50);
-
-
-setTimeout(()=>{
-clearInterval(rollTimer);
-bgm.pause();
-isRolling = false;
-
-
-const i = Math.floor(Math.random()*members.length);
-const winner = members.splice(i,1)[0];
-
-
-display.innerText = winner;
-
-
-const rec = document.createElement('div');
-rec.innerText = `${prizeQueue[currentIndex]}：${winner}`;
-document.getElementById('records').prepend(rec);
-
-
-currentIndex++;
-btn.disabled = false;
-updateDisplay();
-},3000);
-}
-}
+    // 初始化標題
+    updateTitles();
 </script>
-
-
 </body>
 </html>
-
-
 
 
 
