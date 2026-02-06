@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>全通科技抽獎系統</title>
+    <title>全通科技抽獎系統 - 自定義版</title>
     <style>
         :root { --primary-color: #d32f2f; }
         body { font-family: "Microsoft JhengHei", sans-serif; margin: 0; padding: 0; overflow-x: hidden; background: #333; }
@@ -78,14 +78,13 @@
     <input type="text" id="compName" value="全通科技股份有限公司" oninput="updateTitles()">
 
     <label>活動名稱：</label>
-    <input type="text" id="actName" value="2026年度福利抽獎" oninput="updateTitles()">
+    <input type="text" id="actName" value="2025年度感恩禮拜抽獎" oninput="updateTitles()">
 
     <label>員工名單 (工號 姓名)：</label>
-    <textarea id="staffList" rows="5" placeholder="A01 王大明&#10; A02 李小華"></textarea>
+    <textarea id="staffList" rows="5" placeholder="A01 王大明&#10;A02 李小華"></textarea>
 
     <label>獎項設定 (獎號|獎名|數量)：</label>
-    <textarea id="prizeInput" rows="8">
-13|老白茶餅|1
+    <textarea id="prizeInput" rows="8">13|老白茶餅|1
 12|蒸氣眼罩|4
 11|台塑生醫悠甘茶|2
 10|樂美雅保溫杯|1
@@ -170,7 +169,7 @@
         }
     }
 
-   function toggleDraw() {
+    function toggleDraw() {
     const btn = document.getElementById('drawBtn');
     const display = document.getElementById('rolling-display');
 
