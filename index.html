@@ -171,34 +171,26 @@
         }
     }
 
-    function toggleDraw() {
+   function toggleDraw() {
     const btn = document.getElementById('drawBtn');
     const display = document.getElementById('rolling-display');
-    const bgm = document.getElementById('bgm');
 
     if (!isRolling) {
         if (members.length === 0) return alert("名單已空！");
         isRolling = true;
-        btn.disabled = true;
+        btn.disabled = true; // 抽獎中不可再按
         btn.innerText = "抽獎中...";
 
-        // ▶ 播放背景音樂
-        bgm.currentTime = 0;
-        bgm.play();
-
-        // 快速滾動名字
+        // 開始快速滾動
         rollTimer = setInterval(() => {
             const randomName = members[Math.floor(Math.random() * members.length)];
             display.innerText = randomName;
         }, 50);
 
-        // ⭐ 1 秒後自動停止
+        // ⭐ 1秒後自動停止
         setTimeout(() => {
             clearInterval(rollTimer);
             isRolling = false;
-
-            // ⏹ 停止音樂
-            bgm.pause();
 
             const winnerIndex = Math.floor(Math.random() * members.length);
             const winner = members.splice(winnerIndex, 1)[0];
@@ -220,7 +212,7 @@
                 btn.onclick = toggleDraw;
             };
 
-        }, 1000);
+        }, 1000); // ← 1 秒
     }
 }
     // 初始化標題
@@ -228,6 +220,7 @@
 </script>
 </body>
 </html>
+
 
 
 
