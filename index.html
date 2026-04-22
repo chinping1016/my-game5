@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>文字跑馬燈</title>
+<title>自訂跑馬燈</title>
 
 <style>
 body{
@@ -13,7 +13,7 @@ body{
     overflow:hidden;
 }
 
-/* 上方輸入區 */
+/* 控制區 */
 .control-box{
     position:fixed;
     top:10px;
@@ -21,28 +21,32 @@ body{
     transform:translateX(-50%);
     z-index:10;
     display:flex;
+    flex-wrap:wrap;
     gap:10px;
+    justify-content:center;
+    background:rgba(255,255,255,0.08);
+    padding:12px;
+    border-radius:12px;
 }
 
 input{
-    width:400px;
-    padding:10px;
-    font-size:18px;
+    padding:8px;
+    font-size:16px;
     border:none;
     border-radius:8px;
 }
 
 button{
-    padding:10px 20px;
-    font-size:18px;
+    padding:8px 18px;
+    font-size:16px;
     border:none;
     border-radius:8px;
-    background:#ff3c3c;
+    background:#ff0000;
     color:#fff;
     cursor:pointer;
 }
 
-/* 跑馬燈區 */
+/* 跑馬燈 */
 .marquee-wrap{
     position:absolute;
     top:50%;
@@ -54,20 +58,16 @@ button{
 
 .marquee{
     display:inline-block;
+    padding-left:100%;
     font-size:80px;
     font-weight:bold;
-    color:#00ffea;
-    padding-left:100%;
+    color:red;
     animation:run 12s linear infinite;
 }
 
 @keyframes run{
-    from{
-        transform:translateX(0);
-    }
-    to{
-        transform:translateX(-100%);
-    }
+    from{ transform:translateX(0); }
+    to{ transform:translateX(-100%); }
 }
 </style>
 </head>
@@ -75,8 +75,10 @@ button{
 <body>
 
 <div class="control-box">
-    <input type="text" id="textInput" placeholder="請輸入跑馬燈文字">
-    <button onclick="changeText()">更新文字</button>
+    <input type="text" id="textInput" placeholder="輸入文字">
+    <input type="number" id="speedInput" placeholder="速度(秒)" value="12">
+    <input type="number" id="sizeInput" placeholder="字體大小(px)" value="80">
+    <button onclick="updateMarquee()">更新</button>
 </div>
 
 <div class="marquee-wrap">
@@ -84,11 +86,19 @@ button{
 </div>
 
 <script>
-function changeText(){
-    let txt = document.getElementById("textInput").value;
-    if(txt.trim() !== ""){
-        document.getElementById("marqueeText").innerText = txt;
+function updateMarquee(){
+    let text = document.getElementById("textInput").value;
+    let speed = document.getElementById("speedInput").value;
+    let size = document.getElementById("sizeInput").value;
+
+    let marquee = document.getElementById("marqueeText");
+
+    if(text.trim() !== ""){
+        marquee.innerText = text;
     }
+
+    marquee.style.animationDuration = speed + "s";
+    marquee.style.fontSize = size + "px";
 }
 </script>
 
